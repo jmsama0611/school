@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>과제 1</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+</head>
+<body>
+<script>
+function setup() {
+  createCanvas(600, 400);
+  background(220, 230, 240);
+  noLoop();
+}
+
+function draw() {
+  for (let i = 0; i < height; i++) {
+    let inter = map(i, 0, height, 0, 1);
+    let c = lerpColor(color(180, 200, 220), color(240, 245, 250), inter);
+    stroke(c);
+    line(0, i, width, i);
+  }
+
+  for (let i = 0; i < 20; i++) {
+    let grassX = random(0, width);
+    let grassY = random(height - 50, height - 10);
+    let grassHeight = random(10, 40);
+    let grassWidth = random(2, 8);
+
+    fill(random(50, 120), random(150, 220), random(50, 100), random(100, 200));
+    noStroke();
+    rect(grassX, grassY, grassWidth, grassHeight);
+  }
+
+  push();
+
+  let houseWidth = 200;
+  let houseHeight = 180;
+  let roofHeight = 100;
+
+  let baseX = width / 2 - houseWidth / 2;
+  let baseY = height / 2 - houseHeight / 2 + 30;
+
+  let bodyColor = color(150, 100, 80, 220);
+  let roofColor = color(200, 80, 80, 230);
+  let windowColor = color(255, 255, 150, 200);
+
+  fill(bodyColor);
+  stroke(50, 50, 50, 150);
+  strokeWeight(3);
+  rect(baseX, baseY, houseWidth, houseHeight);
+
+  fill(roofColor);
+  stroke(50, 50, 50, 150);
+  triangle(
+    baseX, baseY,
+    baseX + houseWidth, baseY,
+    baseX + houseWidth / 2, baseY - roofHeight
+  );
+
+  fill(bodyColor);
+  rect(baseX + houseWidth * 0.75, baseY - roofHeight + 20, 30, 60);
+
+  let windowSize = 60;
+  fill(windowColor);
+  noStroke();
+  rect(baseX + houseWidth / 2 - windowSize / 2,
+       baseY + houseHeight / 2 - windowSize / 2 - 20, windowSize, windowSize);
+
+  let window2Width = 80;
+  let window2Height = 40;
+  fill(windowColor);
+  rect(baseX + houseWidth / 2 - window2Width / 2,
+       baseY + houseHeight - 60, window2Width, window2Height);
+
+  pop();
+}
+</script>
+</body>
+</html>
