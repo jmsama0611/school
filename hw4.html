@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>과제 4</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/addons/p5.gif.min.js"></script>
+</head>
+<body>
+<script>
+let houseWidth = 83;
+let houseHeight = 75;
+let roofHeight = 42;
+let baseX, baseY;
+let grassStalks = [];
+const NUM_GRASS = 15;
+let timeOffset;
+
+function setup() {
+  createCanvas(250, 166);
+  colorMode(HSB, 360, 100, 100, 100);
+  frameRate(10);
+  timeOffset = random(100);
+
+  baseX = width / 2;
+  baseY = height / 2 + 13;
+
+  for (let i = 0; i < NUM_GRASS; i++) {
+    grassStalks.push({
+      x: random(0, width),
+      w: random(1, 3),
+      initialH: random(3, 15),
+      color: color(random(80, 140), 70, random(70, 90), 100)
+    });
+  }
+
+  saveGif('abstract_animation_final_min.gif', 100);
+}
+
+function draw() {
+  background(220, 20, 95);
+
+  let time = frameCount * 0.03 + timeOffset;
+
+  rectMode(CORNER);
+  let groundLevel = height - 20;
+
+  for (let stalk of grassStalks) {
+    let animatedH = stalk.initialH + sin(time * 5) * 5;
+    fill(stalk.color);
+    noStroke();
+    rect(stalk.x, groundLevel - animatedH, stalk.w, animatedH);
+  }
+
+  push();
+
+  let verticalMove = sin(time * 0.5) * 1.5;
+  translate(0, verticalMove);
+
+  let houseHueShift = map(sin(time * 0.5), -1, 1, -15, 15);
+  let bodyHueBase = 30;
+
+  let bodyColor = color((bodyHueBase + houseHueShift + 360) % 360, 60, 50);
+  let roofColor = color((bodyHueBase + 180 + houseHueShift + 360) % 360, 80, 70);
+
+  let windowPulse = map(cos(time), -1, 1, 0.9, 1.1);
+  let windowSize = 20 * windowPulse;
+  let window2Width = 27 * windowPulse;
+  let window2Height = 13 * windowPulse;
+  let windowColor = color(50, 10, 100);
+
+  rectMode(CENTER);
+  fill(bodyColor);
+  stroke(20, 50);
+  rect(baseX, baseY, houseWidth, houseHeight);
+
+  fill(roofColor);
+  triangle(
+    baseX - houseWidth / 2, baseY - houseHeight / 2,
+    baseX + houseWidth / 2, baseY - houseHeight / 2,
+    baseX, baseY - houseHeight / 2 - roofHeight
+  );
+
+  fill(bodyColor);
+  rectMode(CORNER);
+  rect(baseX + houseWidth * 0.3, baseY - houseHeight / 2 - roofHeight + 7, 10, 20);
+
+  fill(windowColor);
+  noStroke();
+  rectMode(CENTER);
+  rect(baseX, baseY - 7, windowSize, windowSize);
+
+  fill(windowColor);
+  rect(baseX, baseY + houseHeight / 2 - 10, window2Width, window2Height);
+
+  pop();
+}
+</script>
+</body>
+</html>
