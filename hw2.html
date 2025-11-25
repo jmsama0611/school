@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>과제 2</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+</head>
+<body>
+<script>
+function setup() {
+  createCanvas(600, 400);
+  noLoop();
+}
+
+function draw() {
+  background(240);
+  translate(width / 2, height / 2);
+
+  noStroke();
+  fill(255, 224, 189);
+  rectMode(CENTER);
+  rect(0, 95, 70, 60);
+
+  noStroke();
+  fill(126, 87, 194);
+  beginShape();
+  vertex(-175, 350);
+  vertex(-175, 130);
+  quadraticVertex(-100, 100, -50, 100);
+  quadraticVertex(0, 110, 50, 100);
+  quadraticVertex(100, 100, 175, 130);
+  vertex(175, 350);
+  endShape(CLOSE);
+
+  fill(255, 224, 189);
+  stroke(40);
+  strokeWeight(2);
+  ellipse(-130, 20, 25, 45);
+  ellipse(130, 20, 25, 45);
+
+  fill(255, 224, 189);
+  stroke(40);
+  strokeWeight(2);
+  beginShape();
+  vertex(0, 150);
+  quadraticVertex(-120, 120, -130, 20);
+  quadraticVertex(-135, -120, 0, -145);
+  quadraticVertex(135, -120, 130, 20);
+  quadraticVertex(120, 120, 0, 150);
+  endShape(CLOSE);
+
+  noStroke();
+  fill(30, 30, 30);
+  beginShape();
+  vertex(-138, -45);
+  quadraticVertex(-145, -175, 0, -170);
+  quadraticVertex(145, -175, 138, -45);
+  quadraticVertex(70, -60, 0, -55);
+  quadraticVertex(-70, -60, -138, -45);
+  endShape(CLOSE);
+
+  stroke(50);
+  strokeWeight(4);
+  line(-70, -35, -40, -40);
+  line(40, -40, 70, -35);
+
+  fill(255);
+  stroke(40);
+  strokeWeight(2);
+  ellipse(-55, -5, 50, 30);
+  ellipse(55, -5, 50, 30);
+
+  noStroke();
+  fill(30, 30, 30);
+  ellipse(-55, -5, 18, 18);
+  ellipse(55, -5, 18, 18);
+
+  noFill();
+  stroke(50);
+  strokeWeight(2.5);
+  arc(0, 30, 20, 20, 0.2, PI - 0.2);
+
+  stroke(50);
+  strokeWeight(3);
+  arc(0, 70, 60, 40, 0.2, PI - 0.2);
+}
+
+function mousePressed() {
+  saveCanvas('myCaricature', 'png');
+}
+</script>
+</body>
+</html>
